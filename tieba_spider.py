@@ -1,10 +1,6 @@
 import requests
 import os
 
-.
-
-
-
 class TiebaSpider:
     def __init__(self,tieba_name):
         self.tieba_name = tieba_name
@@ -16,7 +12,7 @@ class TiebaSpider:
 
     def parse_url(self,url):  #发送请求，获取响应
         print(url)
-        response = requests.getaders=self.headers)
+        response = requests.get(url,headers=self.headers)
         return response.content.decode()
 
     def save_html(self,page_num,html_str):  # 保存html字符串 李毅吧-第4页.html

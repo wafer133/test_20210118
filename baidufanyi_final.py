@@ -1,7 +1,7 @@
 import requests
 import json
 """
-由于百度反爬虫，这个程序只能爬“你好”这个单词
+由于百度反爬虫，每次请求必须带上cookie才能正常响应,所以首先要发送一次请求，保存cookie，然后拿着cookie再去请求。
 """
 
 class BaiduFanyi:
@@ -36,7 +36,7 @@ class BaiduFanyi:
                          }
         # 3、发送请求，获取响应
         trans_result = self.parse_url(self.lan_fanyi_url, word_to_trans)
-        # print(trans_result)  # 测试是否拿到结果
+        print(trans_result)  # 测试是否拿到结果
         # 4、提取翻译结果
         print(trans_result["trans_result"]["data"][0]["dst"])
         # print(trans_result["trans"][0]["dst"])
