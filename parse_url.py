@@ -25,5 +25,4 @@ def parse_url(url, method="GET", data=None, proxies={}):
 
 
 if __name__ == '__main__':
-    url = "http://wwww.baidu.com"
-    print(parse_url(url))
+    pass
