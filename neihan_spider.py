@@ -20,8 +20,8 @@ class NeiHan:
         joke_list = re.findall(r"<p>(.*?)</p>", html_str)  # 这个(.*)可以取出来需要的数据要学一下
         # 把一些没用的数据去掉
         i = 0
-        while i < len(joke_list):
-            pass
+        # while i < len(joke_list):
+        #     pass
         # print(joke_list)
         return joke_list
 
