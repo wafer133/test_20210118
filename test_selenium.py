@@ -3,6 +3,9 @@ import time
 # 实例化一个浏览器
 driver = webdriver.Chrome()
 
+# 最大化窗口
+driver.maximize_window()
+
 # 发送请求
 driver.get("https://www.baidu.com")
 
