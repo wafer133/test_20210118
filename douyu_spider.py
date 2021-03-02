@@ -1,4 +1,5 @@
 from selenium import webdriver
+from lxml import etree
 import time
 
 
@@ -9,33 +10,39 @@ class DouyuSpider:
 
     def get_content(self):
         self.driver.get(self.start_url)
-        temp_list = self.driver.find_elements_by_xpath("//main[@id='listAll']/section")
-        # print(len(temp_list))
-        # print(temp_list
-        room_list = temp_list[1].find_elements_by_xpath(".//ul[@class='layout-Cover-list']/li")
-        print(room_list)
-        print(len(room_list))
-        print("-"*60)
-        item = {}
-        i = 0
-        for room in room_list:
-            item["title"] = room.find_element_by_xpath(".//h3").text
-            print(item["title"])
+        time.sleep(15)   # 要睡眠一下，要不图片还没加载出来
+        html_str = self.driver.page_source
+        # print(html_str)
+        html = etree.HTML(html_str)
+        print(html)
 
-            i = i + 1
-            if i//10 == 0:
-                time.sleep(3)
+        temp_ret = html.xpath("//main[@id='listAll']//section")
+        print(temp_ret)
+        ret = temp_ret[1].xpath(".//ul[@class='layout-Cover-list']/li")
+        # print(len(ret))
+        item_total = []
+        for li in ret:
+            item = {}
+            item["title"] = li.xpath(".//h3/text()")
+            item["game_type"] = li.xpath(".//div[@class='DyListCover-info']/span[@class='DyListCover-zone']/text()")
+            item["ID"] = li.xpath(".//h2/div/text()")
+            item["hotIcon"] = li.xpath(".//div[@class='DyListCover-info']/span/text()")[1]
+            item["img"] = li.xpath(".//img/@src")[0]
+            # item["description"] = li.xpath(".//div[@class='DyListCover-content']/span/text()")
+            print(item["img"])
+            # print()
+            item_total.append(item)
+        self.driver.quit()
 
-
-        return room_list
-
+        print(len(item_total))
+        return item_total
 
     def run(self):  # 实现主逻辑
         # 1、第一个start_url
         # 2、获取斗鱼直播房间的信息
         content = self.get_content()
 
-        self.driver.quit()
+        item_total =self.driver.quit()
 
 
 if __name__ == '__main__':

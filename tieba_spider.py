@@ -8,11 +8,16 @@ class TiebaSpider:
         self.headers = {"User_Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"}
 
     def get_url_list(self):  # 1 构造url列表
-        return [self.url_temp.format(i+50) for i in range(1000)]
+        return [self.url_temp.format(i+50) for i in range(10)]
 
     def parse_url(self,url):  #发送请求，获取响应
         print(url)
         response = requests.get(url,headers=self.headers)
+        print(response.request.url)
+        print("------------------")
+        print(type(response.request.url))
+
+
         return response.content.decode()
 
     def save_html(self,page_num,html_str):  # 保存html字符串 李毅吧-第4页.html
